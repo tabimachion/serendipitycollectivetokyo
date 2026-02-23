@@ -11,7 +11,7 @@ html {
 body {
   background: #0a0a0a;
   color: #fff;
-  font-family: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
 }
@@ -85,9 +85,8 @@ body {
   font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: 300;
   letter-spacing: -0.02em;
-  line-height: 1.5;
+  line-height: 1.4;
   color: #fff;
-  padding-bottom: 0.1em;
 }
 
 .hero-sub {
