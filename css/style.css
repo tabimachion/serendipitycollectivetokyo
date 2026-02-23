@@ -357,6 +357,22 @@ body {
   height: 18px;
 }
 
+.footer-company {
+  margin-top: 2rem;
+}
+
+.footer-company a {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+
+.footer-company a:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 /* ================================
    RESPONSIVE
    ================================ */
