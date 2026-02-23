@@ -18,9 +18,8 @@
 <body>
   <!-- Cinematic Hero -->
   <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
-      <source src="videos/video-1.mp4" type="video/mp4">
-    </video>
+    <video class="hero-video hero-video-active" autoplay muted playsinline preload="metadata" id="hero-video-1"></video>
+    <video class="hero-video" muted playsinline preload="metadata" id="hero-video-2"></video>
     <div class="hero-overlay"></div>
     <div class="hero-grain"></div>
     <div class="hero-content">
@@ -69,6 +68,44 @@
   </section>
 
   <script>
+    // Hero video carousel
+    const heroVideos = [
+      'videos/video-1.mp4',
+      'videos/video-2.mp4',
+      'videos/video-3.mp4',
+      'videos/video-4.mp4',
+      'videos/video-5.mp4',
+      'videos/video-6.mp4'
+    ];
+    let currentIndex = 0;
+    const video1 = document.getElementById('hero-video-1');
+    const video2 = document.getElementById('hero-video-2');
+    let activeVideo = video1;
+    let nextVideo = video2;
+
+    function loadAndPlayVideo(video, src) {
+      video.src = src;
+      video.load();
+      video.currentTime = 0;
+      video.play();
+    }
+
+    function switchVideo() {
+      currentIndex = (currentIndex + 1) % heroVideos.length;
+      loadAndPlayVideo(nextVideo, heroVideos[currentIndex]);
+
+      nextVideo.classList.add('hero-video-active');
+      activeVideo.classList.remove('hero-video-active');
+
+      [activeVideo, nextVideo] = [nextVideo, activeVideo];
+    }
+
+    // Start first video
+    loadAndPlayVideo(video1, heroVideos[0]);
+
+    // Switch every 5 seconds
+    setInterval(switchVideo, 5000);
+
     // Lazy load archive videos
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
