@@ -15,7 +15,7 @@
 <body>
   <!-- Cinematic Hero -->
   <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata">
       <source src="videos/video-1.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
@@ -45,37 +45,44 @@
   <section class="archive">
     <div class="archive-grid">
       <div class="archive-item">
-        <video autoplay muted loop playsinline>
-          <source src="videos/video-1.mp4" type="video/mp4">
-        </video>
+        <video muted loop playsinline preload="none" data-src="videos/video-1.mp4"></video>
       </div>
       <div class="archive-item">
-        <video autoplay muted loop playsinline>
-          <source src="videos/video-2.mp4" type="video/mp4">
-        </video>
+        <video muted loop playsinline preload="none" data-src="videos/video-2.mp4"></video>
       </div>
       <div class="archive-item">
-        <video autoplay muted loop playsinline>
-          <source src="videos/video-3.mp4" type="video/mp4">
-        </video>
+        <video muted loop playsinline preload="none" data-src="videos/video-3.mp4"></video>
       </div>
       <div class="archive-item">
-        <video autoplay muted loop playsinline>
-          <source src="videos/video-4.mp4" type="video/mp4">
-        </video>
+        <video muted loop playsinline preload="none" data-src="videos/video-4.mp4"></video>
       </div>
       <div class="archive-item">
-        <video autoplay muted loop playsinline>
-          <source src="videos/video-5.mp4" type="video/mp4">
-        </video>
+        <video muted loop playsinline preload="none" data-src="videos/video-5.mp4"></video>
       </div>
       <div class="archive-item">
-        <video autoplay muted loop playsinline>
-          <source src="videos/video-6.mp4" type="video/mp4">
-        </video>
+        <video muted loop playsinline preload="none" data-src="videos/video-6.mp4"></video>
       </div>
     </div>
   </section>
+
+  <script>
+    // Lazy load archive videos
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          if (video.dataset.src && !video.src) {
+            video.src = video.dataset.src;
+            video.load();
+            video.play();
+          }
+          observer.unobserve(video);
+        }
+      });
+    }, { rootMargin: '100px' });
+
+    document.querySelectorAll('.archive-item video').forEach(v => observer.observe(v));
+  </script>
 
   <!-- Connect -->
   <section class="connect">
