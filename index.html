@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260224b">
+  <link rel="stylesheet" href="css/style.css?v=20260224c">
 </head>
 <body>
   <!-- Cinematic Hero -->
@@ -121,6 +121,10 @@
       function loadAndPlayVideo(video, src) {
         video.src = src;
         video.load();
+        video.addEventListener('loadedmetadata', function onLoaded() {
+          video.currentTime = 5;
+          video.removeEventListener('loadedmetadata', onLoaded);
+        });
         video.play().catch(() => {});
       }
 
