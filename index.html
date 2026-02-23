@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260224">
+  <link rel="stylesheet" href="css/style.css?v=20260224b">
 </head>
 <body>
   <!-- Cinematic Hero -->
@@ -67,63 +67,6 @@
     </div>
   </section>
 
-  <script>
-    // Hero video carousel
-    const heroVideos = [
-      'videos/video-1.mp4',
-      'videos/video-2.mp4',
-      'videos/video-3.mp4',
-      'videos/video-4.mp4',
-      'videos/video-5.mp4',
-      'videos/video-6.mp4'
-    ];
-    let currentIndex = 0;
-    const video1 = document.getElementById('hero-video-1');
-    const video2 = document.getElementById('hero-video-2');
-    let activeVideo = video1;
-    let nextVideo = video2;
-
-    function loadAndPlayVideo(video, src) {
-      video.src = src;
-      video.load();
-      video.currentTime = 0;
-      video.play();
-    }
-
-    function switchVideo() {
-      currentIndex = (currentIndex + 1) % heroVideos.length;
-      loadAndPlayVideo(nextVideo, heroVideos[currentIndex]);
-
-      nextVideo.classList.add('hero-video-active');
-      activeVideo.classList.remove('hero-video-active');
-
-      [activeVideo, nextVideo] = [nextVideo, activeVideo];
-    }
-
-    // Start first video
-    loadAndPlayVideo(video1, heroVideos[0]);
-
-    // Switch every 5 seconds
-    setInterval(switchVideo, 5000);
-
-    // Lazy load archive videos
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const video = entry.target;
-          if (video.dataset.src && !video.src) {
-            video.src = video.dataset.src;
-            video.load();
-            video.play();
-          }
-          observer.unobserve(video);
-        }
-      });
-    }, { rootMargin: '100px' });
-
-    document.querySelectorAll('.archive-item video').forEach(v => observer.observe(v));
-  </script>
-
   <!-- Connect -->
   <section class="connect">
     <p class="connect-label">Connect</p>
@@ -157,5 +100,64 @@
       <span class="footer-company-url">https://tabimachion.com</span>
     </a>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero video carousel
+      const heroVideos = [
+        'videos/video-1.mp4',
+        'videos/video-2.mp4',
+        'videos/video-3.mp4',
+        'videos/video-4.mp4',
+        'videos/video-5.mp4',
+        'videos/video-6.mp4'
+      ];
+      let currentIndex = 0;
+      const video1 = document.getElementById('hero-video-1');
+      const video2 = document.getElementById('hero-video-2');
+      let activeVideo = video1;
+      let nextVideo = video2;
+
+      function loadAndPlayVideo(video, src) {
+        video.src = src;
+        video.load();
+        video.play().catch(() => {});
+      }
+
+      function switchVideo() {
+        currentIndex = (currentIndex + 1) % heroVideos.length;
+        loadAndPlayVideo(nextVideo, heroVideos[currentIndex]);
+
+        setTimeout(() => {
+          nextVideo.classList.add('hero-video-active');
+          activeVideo.classList.remove('hero-video-active');
+          [activeVideo, nextVideo] = [nextVideo, activeVideo];
+        }, 100);
+      }
+
+      // Start first video
+      loadAndPlayVideo(video1, heroVideos[0]);
+
+      // Switch every 5 seconds
+      setInterval(switchVideo, 5000);
+
+      // Lazy load archive videos
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const video = entry.target;
+            if (video.dataset.src && !video.src) {
+              video.src = video.dataset.src;
+              video.load();
+              video.play().catch(() => {});
+            }
+            observer.unobserve(video);
+          }
+        });
+      }, { rootMargin: '100px' });
+
+      document.querySelectorAll('.archive-item video').forEach(v => observer.observe(v));
+    });
+  </script>
 </body>
 </html>
