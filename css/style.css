@@ -252,25 +252,51 @@ body {
    FOOTER
    ================================ */
 .footer {
-  padding: 2.5rem 2rem 3rem;
+  padding: 4rem 2rem 5rem;
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.footer-company {
-  margin-top: 0;
-}
-
-.footer-company a {
-  font-size: 0.7rem;
+.footer-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
   color: rgba(255, 255, 255, 0.3);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease;
+  margin-bottom: 1.5rem;
 }
 
-.footer-company a:hover {
-  color: rgba(255, 255, 255, 0.6);
+.footer-company-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-company-link:hover .footer-company-name {
+  color: #fff;
+}
+
+.footer-company-link:hover .footer-company-url {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-company-name {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.footer-company-url {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
 }
 
 /* ================================
